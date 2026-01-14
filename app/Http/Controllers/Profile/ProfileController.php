@@ -17,17 +17,26 @@ class ProfileController extends Controller
     {
         $user = $request->user();
 
-
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'mobile' => $request->mobile,
-            'password' => bcrypt($request->password),
-            'avatar' => $request->avatar,
-            ]);
-
         $data = $request->validated();
-        return response()->json($user);
+
+        if ($request->hasFile('avatar')) {
+            $path = $request->file('avatar')->store('uploads', 'public');
+            $data['avatar'] = 'storage/' . $path;
+        }
+
+        if (!empty($data['password'])) {
+            $data['password'] = bcrypt($data['password']);
+        } else {
+            unset($data['password']);
+        }
+
+        $user->update($data);
+
+        return response()->json([
+            'message' => 'Profile updated successfully',
+            'user' => $user
+        ]);
     }
+
 
 }

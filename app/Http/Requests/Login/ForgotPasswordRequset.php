@@ -24,6 +24,7 @@ class forgotPasswordRequset extends FormRequest
         return [
             'email' => 'required|email',
             'otp' => 'required',
+            'password' => 'required|min:6',
         ];
     }
 }

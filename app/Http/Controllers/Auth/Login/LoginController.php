@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth\Login;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Login\forgotPasswordRequset;
 use App\Http\Requests\Login\LoginRequset;
-use App\Http\Requests\Login\ResetPasswordRequset;
+use App\Http\Requests\Login\ResetpasswordRequest;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -35,16 +35,26 @@ class LoginController extends Controller
     public function forgotPassword(ForgotPasswordRequset $request)
     {
         $data = $request->validated();
+
         if ($data['otp'] !== '1234') {
             return response()->json([ 'message' => 'OTP incorrect', ], 400);
         }
+
+        $user = User::where('email', $data['email'])->first();
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+        $user->update([
+            'password' => bcrypt($data['password'])
+        ]);
         return response()->json([
             'message' => 'OTP sent (use 1234)'
         ]);
 
     }
 
-    public function resetpassword(ResetPasswordRequset $request)
+    public function resetpassword(ResetpasswordRequest $request)
     {
         $user = Auth::user();
         $data = $request->validated();

@@ -24,7 +24,7 @@ class editProfileRequest extends FormRequest
         return [
             'email' => 'email|unique:users|nullable',
             'mobile' => 'numeric|unique:users|nullable',
-            'avatar' => 'image|mimes:jpeg,png,jpg,gif|max:2048|nullable',
+            'avatar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'name' => 'string|nullable',
             'country' => 'string|nullable',
             'the-address' => 'string|nullable',
