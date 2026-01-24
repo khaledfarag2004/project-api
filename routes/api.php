@@ -12,6 +12,8 @@ Route::prefix('auth')->group(function () {
     Route::post('otp-register', [RegisterController::class, 'otpRegister']);
     Route::post('login', [LoginController::class, 'login']);
     Route::post('ForgotPassword', [LoginController::class, 'forgotPassword']);
+    Route::middleware('auth:sanctum')->get('logout', [LoginController::class, 'logout']);
+
     Route::middleware('auth:sanctum')->post('resetpassword', [LoginController::class, 'resetpassword']);});
 Route::middleware('auth:sanctum')->prefix('profile')->group(function () {
     Route::put('edit', [ProfileController::class, 'editProfile']);
