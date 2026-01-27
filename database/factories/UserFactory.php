@@ -24,13 +24,17 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'name' => $this->faker->name(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'mobile' => $this->faker->phoneNumber(),
+            'country' => $this->faker->country(),
+            'avatar' => $this->faker->imageUrl(),
+            'password' => bcrypt('password'),
+            'role' => 'user',
+            'is_verified' => 0,
         ];
     }
+
 
     /**
      * Indicate that the model's email address should be unverified.

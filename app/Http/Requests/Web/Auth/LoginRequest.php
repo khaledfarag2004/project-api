@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Profile;
+namespace App\Http\Requests\Web\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class editProfileRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +22,8 @@ class editProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'email|unique:users|nullable',
-            'mobile' => 'numeric|unique:users|nullable',
-            'avatar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'name' => 'string|nullable',
-            'country' => 'string|nullable',
+            'email' => 'required|string|email|max:255',
+            'password' => 'required|string|min:6',
         ];
     }
 }

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('mobile')->unique();
             $table->string('avatar')->nullable();
             $table->string('password');
+            $table->string('role')->nullable()->default('user');
             $table->string('country')->nullable();
-            $table->string('the-address')->nullable();
             $table->boolean('is_verified')->default(false);
             $table->timestamps();
         });

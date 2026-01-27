@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Profile;
+namespace App\Http\Requests\Web;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class editProfileRequest extends FormRequest
+class CreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +22,14 @@ class editProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'email|unique:users|nullable',
-            'mobile' => 'numeric|unique:users|nullable',
-            'avatar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'name' => 'string|nullable',
-            'country' => 'string|nullable',
+            "name" => "required|string",
+            "email" => "required|email",
+            "password" => "required|string",
+            "mobile" => "required|string|min:11|max:11|unique:users|regex:/^([0-9\s\-\+\(\)]*)$/",
+            "country" => "string",
+            "role" => "required|string|in:user,admin",
+            "is_verified" => "required|boolean",
+
         ];
     }
 }

@@ -19,7 +19,9 @@ class LoginController extends Controller
         $data = $request->validated();
 
         if (!Auth::attempt($data)) {
-            return response()->json(['message' => 'Invalid credentials'], 401);
+            return response()->json([
+                'message' => 'Invalid credentials'
+            ], 401);
         }
 
         $user = Auth::user();

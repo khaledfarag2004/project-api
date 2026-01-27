@@ -19,7 +19,6 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
             'mobile' => $data['mobile'],
             'is_verified' => false,
-            'avatar' => false,
         ]);
 
         return response()->json([
