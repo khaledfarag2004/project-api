@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\web;
+namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\CreateRequest;
@@ -37,6 +37,9 @@ class UserController extends Controller
             $data['password'] = bcrypt($data['password']);
         } else {
             unset($data['password']);
+        }
+        if (isset($data['mobile']) && $data['mobile'] === $user->mobile) {
+            unset($data['mobile']);
         }
 
         $user->update($data);

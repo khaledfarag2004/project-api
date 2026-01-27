@@ -170,13 +170,14 @@
 
         <div class="form-group">
             <label>Country</label>
-            <input type="text" name="country" value="{{ $user->role }}">
+            <input type="text" name="country" value="{{ $user->country }}">
         </div>
 
         <div class="form-group">
-            <label>Country</label>
-            <input type="text" name="country" value="{{ $user->country }}">
+            <label>Role</label>
+            <input type="text" name="role" value="{{ $user->role }}">
         </div>
+
 
         <div class="form-group">
             <label>Is Verified</label>
