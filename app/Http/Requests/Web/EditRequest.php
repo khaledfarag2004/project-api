@@ -24,7 +24,7 @@ class EditRequest extends FormRequest
         return [
             "name" => "required|string",
             "email" => "required|email",
-            "mobile" => "required|string|min:11|max:11|unique:users|regex:/^([0-9\s\-\+\(\)]*)$/",
+            "mobile" => "string|min:11|max:11|regex:/^([0-9\s\-\+\(\)]*)$/",
             "address" => "string",
             "role" => "required|string|in:user,admin",
             "country" => "string",

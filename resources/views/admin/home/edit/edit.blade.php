@@ -175,7 +175,10 @@
 
         <div class="form-group">
             <label>Role</label>
-            <input type="text" name="role" value="{{ $user->role }}">
+            <select name="role">
+                <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>User</option>
+                <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
+            </select>
         </div>
 
 
@@ -192,10 +195,17 @@
             <input type="file" name="avatar">
 
             @if($user->avatar)
-                <div class="avatar-preview">
-                    <img src="{{ asset('storage/'.$user->avatar) }}">
-                    <span style="color:#94a3b8;font-size:13px">Current Avatar</span>
-                </div>
+                <img src="{{ asset('uploads/avatars/' . $user->avatar) }}"
+                     alt="Avatar"
+                     width="100"
+                     height="100"
+                     class="rounded-circle">
+            @else
+                <img src="{{ asset('uploads/avatars/default-avatar.png') }}"
+                     alt="Default Avatar"
+                     width="100"
+                     height="100"
+                     class="rounded-circle">
             @endif
         </div>
 

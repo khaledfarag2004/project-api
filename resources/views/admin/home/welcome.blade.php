@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin Control Panel</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
@@ -236,13 +237,39 @@
         @foreach($users as $user)
             <tr>
                 <td>{{ $user->id }}</td>
-                <td>{{ $user->name }}</td>
+                @if($user->role == "admin")
+                    <td>
+                        {{ $user->name }}
+                        <i class="bi bi-check-circle-fill text-success" title="موثق"></i>
+                    </td>
+                @else
+                    <td>{{ $user->name }}</td>
+                @endif
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->mobile }}</td>
-                <td>{{ $user->avatar }}</td>
+                <td>
+                    @if($user->avatar)
+                        <img src="{{ asset('uploads/avatars/' . $user->avatar) }}"
+                             alt="Avatar"
+                             width="50"
+                             height="50"
+                             class="rounded-circle">
+                    @else
+                        <img src="{{ asset('uploads/avatars/default-avatar.png') }}"
+                             alt="Default Avatar"
+                             width="50"
+                             height="50"
+                             class="rounded-circle">
+                    @endif
+                </td>
                 <td>{{ $user->country }}</td>
-                <td>{{ $user->is_verified }}</td>
-                <td>{{ $user->role }}</td>
+                <td>
+                    @if($user->is_verified)
+                        <button class="btn btn-success btn-sm" disabled>Active</button>
+                    @else
+                        <button class="btn btn-danger btn-sm" disabled>Inactive</button>
+                    @endif
+                </td>                <td>{{ $user->role }}</td>
                 <td>{{ $user->created_at }}</td>
                 <td>
                     <a href="{{ route('edituser', $user->id) }}">

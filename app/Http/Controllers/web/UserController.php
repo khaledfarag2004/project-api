@@ -17,7 +17,7 @@ class UserController extends Controller
         return view('admin.home.welcome', compact('users'));
     }
     public function create(){
-        return view('admin.home.create');
+        return view('admin.home.create.create');
     }
     public function store(CreateRequest $request){
         $data = $request->validated();
@@ -41,6 +41,14 @@ class UserController extends Controller
         if (isset($data['mobile']) && $data['mobile'] === $user->mobile) {
             unset($data['mobile']);
         }
+
+        if ($request->hasFile('avatar')) {
+            $file = $request->file('avatar');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads/avatars'), $filename);
+            $data['avatar'] = $filename;
+        }
+
 
         $user->update($data);
         return redirect()->route('edituser', $user->id)->with('success', 'User updated successfully');

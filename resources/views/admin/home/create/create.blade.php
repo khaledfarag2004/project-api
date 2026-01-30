@@ -129,6 +129,7 @@
     </div>
 @endif
 
+
 <div class="container">
     <form method="POST" action="{{ route("storeuser") }}">
         @csrf
@@ -154,8 +155,12 @@
 
         <div class="form-group">
             <label>Role</label>
-           <input type="text" name="role" placeholder="user,admin">
+            <select name="role">
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+            </select>
         </div>
+
 
         <div class="form-group">
             <label>Country</label>
